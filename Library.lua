@@ -1258,11 +1258,11 @@ function Library:CreateWindow(options)
 	--====================================================
 	-- KEYBOARD NAVIGATION
 	--
-	-- Q / E       = onglet gauche / droite
+	-- Q / E       = onglet gauche / droite quand on ne règle rien
 	-- ↑ / ↓       = élément précédent / suivant
 	-- ENTER       = activer un toggle/bouton
 	--               ou entrer en mode réglage pour slider/dropdown
-	-- ← / →       = régler la valeur quand le mode réglage est actif
+	-- Q / E       = diminuer / augmenter la valeur en mode réglage
 	-- BACKSPACE   = quitter le mode réglage
 	-- RIGHT SHIFT = afficher / cacher le menu
 	--
@@ -1364,23 +1364,23 @@ function Library:CreateWindow(options)
 				return
 			end
 
-			-- Flèche gauche = une seule étape vers la gauche
-			if keyCode == Enum.KeyCode.Left then
+			-- Q = une seule étape vers la gauche / valeur précédente.
+			if keyCode == Enum.KeyCode.Q then
 				if item and item.Left then
 					item:Left()
 				end
 				return
 			end
 
-			-- Flèche droite = une seule étape vers la droite
-			if keyCode == Enum.KeyCode.Right then
+			-- E = une seule étape vers la droite / valeur suivante.
+			if keyCode == Enum.KeyCode.E then
 				if item and item.Right then
 					item:Right()
 				end
 				return
 			end
 
-			-- Pendant le réglage, ↑ ↓ Q E et ENTER ne font rien.
+			-- Pendant le réglage, ↑ ↓ ENTER et les flèches ne font rien.
 			return
 		end
 
@@ -1468,8 +1468,8 @@ function Library:CreateWindow(options)
 			return
 		end
 
-		-- Les flèches gauche/droite ne changent plus les tabs ici.
-		-- Elles sont réservées au réglage après ENTER.
+		-- Q/E changent d'onglet seulement hors mode réglage.
+		-- Une fois ENTER pressé sur un slider/dropdown, Q/E règlent la valeur.
 	end)
 
 	--====================================================
